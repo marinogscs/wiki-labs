@@ -56,6 +56,8 @@ else
   npx quartz build
   git add content quartz.config.yaml portada.md publicar.sh
   git commit -m "Actualiza los labs ($(date +%Y-%m-%d))" || echo "No hay cambios para subir."
-  git push
+  # Sube siempre con la cuenta marinogscs, aunque la cuenta activa de gh sea otra.
+  GH_TOKEN="$(gh auth token --user marinogscs)" \
+    git -c credential.helper= -c 'credential.helper=!gh auth git-credential' push
   echo "Listo. GitHub actualiza la wiki en 1 o 2 minutos."
 fi
